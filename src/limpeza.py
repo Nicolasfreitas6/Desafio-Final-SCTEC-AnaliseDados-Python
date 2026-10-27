@@ -82,7 +82,6 @@ def limpar_documento(texto, tipo_pessoa=None):
         return None
     return digitos.zfill(tamanho)
 
-
 # ---------------------------------------------------------------------------------------------
 # 3) DINHEIRO E NUMEROS EM TEXTO
 # ---------------------------------------------------------------------------------------------
