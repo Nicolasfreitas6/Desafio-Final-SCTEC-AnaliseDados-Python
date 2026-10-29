@@ -1,16 +1,3 @@
-"""
-carregar.py  -  CARGA NO POSTGRESQL   (voce completa os trechos com ____)
-=========================================================================
-Passos:  1) recria o banco e as tabelas (banco.recriar_banco + sql/01_criar_banco.sql)
-         2) carrega as 4 DIMENSOES   3) carrega a FATO (as dimensoes vem primeiro!)   4) confere as contagens
-Usa so o que o kit ja traz: src/config.py e src/banco.py (recriar_banco, conectar, executar_script, inserir_em_lote, consultar).
-O sql/01_criar_banco.sql e o SEU script (veja a secao 4.3 do enunciado): crie esse arquivo antes de rodar a carga.
-Ele so cria as tabelas: o banco em si e recriado por banco.recriar_banco().
-Dica: veja a carga em lote do 1_extrair.py do Desafio Transparencia (banco.inserir_em_lote).
-
-COMO RODAR (depois do montar_tabelas):   python -m src.carregar
-"""
-
 import pandas as pd
 from src import banco, config
 
@@ -57,7 +44,6 @@ def main():
     print("Conferencia:")
     for tabela, esperado in [("fato_item_contratado", 6126), ("dim_orgao", 363), ("dim_fornecedor", 2652),
                              ("dim_modalidade", 7), ("dim_localidade", 27)]:
-        # COMPLETE: conte as linhas da tabela com SELECT COUNT(*)
         n = banco.consultar(con, f"SELECT COUNT(*) FROM {tabela}")[0][0]
         print(f"   {tabela}: {n} (esperado {esperado}) -> {'OK' if n == esperado else 'DIVERGENTE'}")
     con.close()
