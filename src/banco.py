@@ -1,20 +1,8 @@
-"""
-banco.py  -  conexao e utilitarios do PostgreSQL
-------------------------------------------------
-Mesmo papel do banco.py dos projetos anteriores: abrir conexao, executar SQL e
-inserir em lote. Acrescenta recriar_banco() (o CREATE DATABASE do PostgreSQL
-precisa de autocommit e de uma conexao em OUTRO banco) e executar_script() para
-rodar os arquivos da pasta sql/.
-"""
-
 import re
-
 import psycopg2
 from psycopg2 import Error, sql
 from psycopg2.extras import execute_values
-
 from src import config
-
 
 def conectar(database=None):
     """Abre a conexao no banco do projeto (ou em 'database', se informado)."""
@@ -25,7 +13,6 @@ def conectar(database=None):
             f"Nao foi possivel conectar ao PostgreSQL em {config.PG_CONFIG['host']}:{config.PG_CONFIG['port']}. "
             f"Confira o arquivo .env e se o servico esta no ar. Detalhe: {erro}"
         )
-
 
 def recriar_banco():
     """DROP + CREATE DATABASE (conecta no banco administrativo 'postgres')."""
@@ -41,12 +28,10 @@ def recriar_banco():
     cur.close()
     con.close()
 
-
 def _separar_comandos(texto):
     """Quebra um script .sql em comandos (remove comentarios '-- ...' e separa por ';')."""
     sem_comentarios = re.sub(r"--[^\n]*", "", texto)
     return [c.strip() for c in sem_comentarios.split(";") if c.strip()]
-
 
 def executar_script(conexao, caminho):
     cursor = conexao.cursor()
@@ -55,13 +40,11 @@ def executar_script(conexao, caminho):
     conexao.commit()
     cursor.close()
 
-
 def executar(conexao, comando, params=None):
     cursor = conexao.cursor()
     cursor.execute(comando, params)
     conexao.commit()
     cursor.close()
-
 
 def consultar(conexao, comando, params=None):
     """SELECT -> lista de tuplas."""
@@ -70,7 +53,6 @@ def consultar(conexao, comando, params=None):
     linhas = cursor.fetchall()
     cursor.close()
     return linhas
-
 
 def inserir_em_lote(conexao, sql_insert, linhas):
     """Insere varias linhas de uma vez.
