@@ -30,4 +30,4 @@ A construção visual seguiu rigorosamente os **Princípios CRAP** (Contraste, R
 ## 🚀 Como Executar
 1. Faça o clone deste repositório.
 2. Abra o ficheiro `.pbix` localizado na pasta `powerbi/` utilizando o Power BI Desktop.
-3. [Link para o Vídeo de Defesa de 7 minutos](INSERIR_LINK_AQUI)
+3. Assistir o link do vídeo explicativo sobre o projeto e o que foi realizado: https://drive.google.com/file/d/1MgYqcOiY0a95u35J0MRK31xkTdPGD8GO/view?usp=sharing
